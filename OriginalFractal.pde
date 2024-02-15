@@ -1,22 +1,24 @@
-void setup() {
-  //sets the background to sky blue
-  background(#87CEEB);
-  size(500, 500);
+int[] colors;
+int colorIndex = 0;
+
+void setup(){
+  size(500,500);
+  colors = new int[25];
+  for (int i = 0; i < colors.length; i++) {
+    colors[i] = color(0, 0, 255, i * 10);
+  }
 }
 
-void draw() {
-  //draws the sun
-  fill(#EA9300);
-  ellipse((float)400, (float)100, (float)100, (float)100);
-  
-  //model
-  fill(255, 255, 255);
-  rect((float) 0, (float)450, 200, 50);
-  rect((float)10, (float)400, 180, 50);
-  rect((float)20, (float)350, 160, 50);
-  
+void draw(){
+  background(255);
+  colorIndex = (colorIndex + 1) % colors.length;
+  circles(250, 250, 500, colorIndex);
 }
 
-public void drawFractal(int x, int y, int width, int height) {
-
+public void circles(int xPos, int yPos, int dim, int index){
+  fill(colors[index]);
+  ellipse(xPos, yPos, dim, dim);
+  if(dim > 20){
+     circles(xPos, yPos, dim - 20, (index + 1) % colors.length);
+  }
 }
